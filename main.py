@@ -105,7 +105,7 @@ def test_send():
             subject=f"JOBSEC EARLY WARNING SYSTEM TEST",
             body=f"This is a test.\nWLUC is conducting a test of the JOBSEC Early Warning System. This is only a test.\nThis is a test of the JOBSEC Early Warning System.\nThe broadcasters of your area in voluntary cooperation with the Federal, State and local authorities (Not really....it's just me at a Starbucks or something) have developed this system to keep you informed in the event of a threat to music retail job security. If this had been an actual emergency, this email would have been followed by official information, news or instructions. This station serves me and the boys.\nThis concludes this test of the JOBSEC Early Warning System."
             )
-test_send()
+# test_send()
 
 
 def get_data():
@@ -133,7 +133,7 @@ def get_data():
             print(f"{severity} SENTIMENT DETECTED:", entry.title)
             send_email_alert(
             subject=f"JOBSEC EARLY WARNING SYSTEM ALERT: SEVERITY {severity}",
-            body=f"{severity} SENTIMENT DETECTED!!!!:\nTITLE: {entry.title}\nSOURCE/PRIMARY ENTRY POINT: {entry.link}"
+            body=f"{severity} SENTIMENT DETECTED!!!!:\nTITLE: {entry.title}\nSOURCE: PRIMARY ENTRY POINT: {entry.link}"
             )
         elif compound < -0.5:
             severity = "⚠️ Highly Negative"
@@ -174,7 +174,7 @@ def get_data():
 
     print("DATA END", data_time)
     print("Overall average sentiment:", avg_compound)
-# get_data()
+get_data()
 
 
 # if __name__ == "__main__":
