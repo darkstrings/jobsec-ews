@@ -102,8 +102,8 @@ def send_email_alert(subject, body):
 
 def test_send():
     send_email_alert(
-            subject=f"JOBSEC EARLY WARNING SYSTEM TEST",
-            body=f"This is a test.\nWLUC is conducting a test of the JOBSEC Early Warning System. This is only a test.\nThis is a test of the JOBSEC Early Warning System.\nThe broadcasters of your area in voluntary cooperation with the Federal, State and local authorities (Not really....it's just me at a Starbucks or something) have developed this system to keep you informed in the event of a threat to music retail job security. If this had been an actual emergency, this email would have been followed by official information, news or instructions. This station serves me and the boys.\nThis concludes this test of the JOBSEC Early Warning System."
+            subject=f"JOBSEC EWS TEST",
+            body=f"Test complete"
             )
 # test_send()
 
