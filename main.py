@@ -4,11 +4,16 @@ from email.mime.text import MIMEText
 from vaderSentiment.vaderSentiment import SentimentIntensityAnalyzer
 from urllib.parse import quote_plus
 
+# Leaving this here for pythonanywhere
+from dotenv import load_dotenv
+load_dotenv()
+
+
 MAIL_SERVER = os.environ.get("JOBSEC_EWS_MAIL_SERVER")
-SMTP_PORT = os.environ.get("JOBSEC_EWS_SMTP_PORT")
+SMTP_PORT = int(os.environ.get("JOBSEC_EWS_SMTP_PORT"))
 EMAIL_ADDRESS = os.environ.get("JOBSEC_EWS_EMAIL_ADDRESS")
 EMAIL_PASSWORD = os.environ.get("JOBSEC_EWS_EMAIL_PASSWORD")  # app password
-
+ALERT_COMPANY = os.environ.get("JOBSEC_EWS_ALERT_COMPANY")
 # IF USING AN ENV VAR FOR THE REIPIENT LIST 
 raw_recipients = os.environ.get("JOBSEC_EWS_ALERT_RECIPIENTS","")
 recipient_list = [addr.strip() for addr in raw_recipients.split(",") if addr.strip()]
@@ -17,7 +22,8 @@ recipient_list = [addr.strip() for addr in raw_recipients.split(",") if addr.str
 # recipient_list = ["someone@somewhere.com","someoneelse@somewhereelse.com"]
 
 analyzer = SentimentIntensityAnalyzer()
-company_name_raw="guitar center"
+# company_name_raw="guitar center"
+company_name_raw = ALERT_COMPANY
 company_name_formatted = quote_plus(company_name_raw)
 
 url = f"https://news.google.com/rss/search?q={company_name_formatted}&hl=en-US&gl=US&ceid=US:en"
@@ -51,14 +57,14 @@ custom_strings = {
     "chapter 7": -5.0,
     "fire sale": -5.0,
     "insolvency filing": -5.0,
+    "employee arrested": -5.0,
 
     # Moderate negatives (-4)
     "moody's": -4.0,
-    "going concern": -4.0,
+    "growing concern": -4.0,
     "financial distress": -4.0,
 
     # Mild negatives (-2)
-    "financial": -2.0,
     "debt": -2.0,
     "restructuring": -2.0,
     "debt restructuring": -2.0,
@@ -147,7 +153,7 @@ def get_data():
             print(f"{severity} sentiment detected:", entry.title)
             send_email_alert(
             subject=f"Jobsec Early Warning System Advisory: Severity {severity}",
-            body=f"{severity} sentiment detected:\nTITLE: {entry.title}\nSOURCE: {entry.link}"
+            body=f"Possibly {severity} sentiment detected:\nTITLE: {entry.title}\nSOURCE: {entry.link}"
             )
         elif compound < -0.2:
             severity = "Mildly Negative"
