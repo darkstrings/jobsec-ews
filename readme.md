@@ -1,4 +1,4 @@
-# JobSec Early Warning System (EWS)
+# JobSec Early Warning System
 
 A Python project that checks the financial health of **any company you configure**.  
 It scrapes Google News RSS feeds, applies sentiment analysis, and sends early‑warning alerts via email when risk signals are detected.
