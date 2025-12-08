@@ -66,6 +66,7 @@ custom_strings = {
     "arrest" : -4.0,
     "arrested" : -4.0,
     "felony" : -4.0,
+    "scheme" : -4.0,
     
 
     # Mild negatives (-2)
